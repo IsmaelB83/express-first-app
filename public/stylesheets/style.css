@@ -1,0 +1,154 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0; 
+}
+
+:root {
+  --font-family: sans-serif;
+  --font-size: 20px;
+  --max-width: 1200px;
+  --nav-height: 60px;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  font-size: var(--font-size); 
+}
+h2 {
+  padding: 1em 0;
+}
+p {
+  padding: 1em 0;
+}
+body {
+  margin: 0 auto;
+  position: relative;
+}
+.nav {
+  top: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: rgb(87, 83, 83);
+  text-align: center;
+  height: var(--nav-height);
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+.menu {
+  max-width: var(--max-width);
+  position: relative;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+}
+.submenu {
+  text-align: left;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: none;
+}
+.submenu .submenu {
+  top: 0;
+  left: 100%;
+}
+.menu-item {
+  background: rgb(87, 83, 83);
+  color: white;
+  position: relative;
+  padding: .5em;
+  min-width: 150px;
+  cursor: pointer;
+  border: 1px solid rgb(87, 83, 83);
+}
+.menu-item:hover {
+  background: rgba(0,0,0,.75);
+  border: 1px solid white;
+}
+.menu-item:hover > .submenu {
+  display: block;
+}
+.container {
+  margin: 1em auto;
+  display: grid;
+  grid-template-columns: minmax(200px,300px) 1fr;
+  max-width: var(--max-width);
+  overflow: hidden;
+}
+.link {
+  text-decoration: none;
+  font-size: .5em;
+  margin-left: .5em;
+}
+.link-2 {
+  font-size: 1em;
+}
+:target {
+  padding-top: calc(var(--nav-height) + .5em);
+} 
+.lista {
+  list-style:upper-alpha;
+  list-style-position: inside;
+}
+.sidebar {
+  grid-column: 1;
+  padding-right: 2em;
+}
+.content {
+  grid-column: 2;
+  width: 100%;
+}
+.card {
+  position: sticky;
+  top: calc(var(--nav-height) + .5em);
+  max-width: 100%;
+}
+.card-image {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-image img {
+  width: 100%;
+  display: block;
+}
+.card-main {
+  padding: 5px;
+  font-size: .75em;
+}
+.card-title {
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid orange;
+}
+.card-content p {
+  padding: 10px 0;
+  letter-spacing: 1px;
+  font-size: .75em;
+}
+.card-footer {
+  width: 100%;
+  text-align: center;
+}
+.card-footer a {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  padding: 10px 0;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  border: 1px solid black;
+}
+.card-footer a:hover {
+  background: orangered;
+}
+.hero {
+  height: 350px;
+  margin-top: var(--nav-height);
+  background-image: url(https://fullrangecrossfit.com/wp-content/uploads/2014/01/home-banner2.jpg)
+}
