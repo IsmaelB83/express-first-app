@@ -20,27 +20,34 @@ router.get('/', function(req, res, next) {
 
 router.get('/:id([0-9]+)', function (req, res, next) {
   let id = req.params.id;
-  devolverClient(res, id);
+  getDisco(id)
+  .then(client => {
+    console.log(client);
+    if(client) res.render('client', client);
+    else res.status(404).render ('client', undefined);
+  })
 });
 
-router.get('/body', function (req, res, next) {
-  let id = req.body.customer;
-  devolverClient(res, id);
-});
-
-function devolverClient(res, id) {
-  let pathToFile = path.join('./', `${id}.xml`);
-  fs.readFile(pathToFile, 'utf8', function (err, data) {
-    if (err) res.status(404).send(`Client ${id} not found`);
-    else {
-      const xmlToJson = require('xml-to-json-stream');
-      const parser = xmlToJson({attributeMode:false});
-      parser.xmlToJson(data, (err,json)=>{
-          if(err) res.status(404).send (err);
-          else res.render('client', json );
-      });
+// Conectando a mongo
+var mongoClient = require('mongodb').MongoClient;
+async function getDisco(id) {
+  let db;
+  try {
+    let client = await mongoClient.connect('mongodb://localhost:27017/cursonode', { useNewUrlParser: true });  
+    db = client.db('cursonode');
+    try {
+      let data = await db.collection('discos').find({'client.id': id}).toArray();
+      if (data.length > 0) {
+        console.log('encontrado');
+        console.log(data[0]);
+        return data[0];
+      }       
+    } catch (error) {
+      console.log(`Error disco no encontrado`);      
     }
-  });
+  } catch (err) {
+    console.log(`Error conectando a la base de datos: ${err}`);    
+  }
 }
 
 module.exports = router;
