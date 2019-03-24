@@ -8,7 +8,17 @@ var Athletes = mongoose.model('Athletes');
 mongoose.set('debug', true);
 
 router.get('/', function(req, res, next) {
-  Athletes.find().exec(function(err,result) {
+  /* Athletes.find().exec(function(err,result) { */
+  let name = req.query.name;
+  let country = req.query.country;
+  let limit = req.query.limit || null;
+  let skip = req.query.skip || null;
+  let fields = req.query.fields || null;
+  let sort = req.query.sort || null;
+  let filter = {}
+  if (name) filter.name = name;
+  if (country) filter.country = country;
+  Athletes.list(filter, limit, skip, fields, sort, function(err,result) {
     if (err) {
       next(err);
       return;
@@ -28,7 +38,6 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/:id', function (req, res, next) {
-  console.log(req.params.id);
   Athletes.find({_id: req.params.id}).exec(function(err,result) {
     if (err) {
       next(err);

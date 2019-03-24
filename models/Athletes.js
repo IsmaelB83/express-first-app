@@ -12,4 +12,16 @@ var athleteSchema = mongoose.Schema({
     instagram: String,
 });
 
-mongoose.model('Athletes', athleteSchema);
+athleteSchema.statics.list = function(filter, limit, skip, fields, sort, callback) {
+    var query = Athlete.find(filter);
+    query.limit(limit);
+    query.skip(skip);
+    query.select(fields);
+    query.sort(sort);
+    query.exec(callback);
+    /* query.exec(function(err,result){
+        callback(err,result);
+    }); */
+}
+
+var Athlete = mongoose.model('Athletes', athleteSchema);
