@@ -11,8 +11,8 @@
     <% include includes/hero.ejs %>
 
     <div class="container">
-        <h1>Athlete details</h1>
         <% if (status === 'ok') { %>
+            <h1><%= result[0].name %></h1>
             <div class="cards">
                 <div class="card">
                     <div class="card-image">
@@ -20,14 +20,13 @@
                     </div>
                     <div class="card-main">
                         <div class="card-title">
-                            <a href="/athletes/<%= result[0].id %>"><%= result[0].name %></a>
+                            <a href="/athletes/<%= result[0].id %>"></a>
                         </div>
                         <div class="card-content">
-                            <p>Athlete information:</p>
                             <ul>
-                                <li>Age: <%= result[0].age %></li>
-                                <li>Country: <%= result[0].country %></li>
-                                <li>Games Won: <%= result[0].gamesWon %></li>
+                                <li><b>Age:</b> <%= result[0].age %></li>
+                                <li><b>Country:</b> <%= result[0].country %></li>
+                                <li><b>Games Won:</b> <%= result[0].gamesWon %></li>
                             </ul>
                             <p><%= result[0].bio %></p>
                         </div>

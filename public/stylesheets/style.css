@@ -126,9 +126,7 @@ body {
   font-size: .75em;
   padding: 10px 0;
 }
-.card-content p {
-  padding-top: 0;
-}
+
 .card-content ul {
   list-style: none;
 }

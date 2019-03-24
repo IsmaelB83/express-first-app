@@ -8,57 +8,24 @@ var Athletes = mongoose.model('Athletes');
 mongoose.set('debug', true);
 
 router.get('/', function(req, res, next) {
-  try {
-    let id = req.params.id;
-    getAthletes(function(err, list){
-      if (!err) res.status(200).render('athlete', {status: 'ok', result: list});
-      else {
-        console.log(err);
-        res.status(404).render('athlete', {status: 'ko', result: null});
-      }
-    });
-  } catch (err) {    
-    console.log('excepcion');
-    next(err);
-  }
-});
-
-router.get('/:id([0-9]+)', function (req, res, next) {
-    try {
-      let id = req.params.id;
-      getAthlete(id, function(err, list){
-        if (!err) res.status(200).render('athlete-detail', {status: 'ok', result: list});
-        else {
-          console.log(err);
-          res.status(404).render('athlete-detail', {status: 'ko', result: null});
-        }
-      });
-    } catch (err) {    
-      console.log('excepcion');
+  Athletes.find().exec(function(err,result) {
+    if (err) {
       next(err);
-    }
+      return;
+    } 
+    res.status(200).render('athlete', {status: 'ok', result: result});
+  });
 });
 
-async function getAthletes(callback) {
-  try {
-    console.log('get athletes');
-    let athletes = await Athletes.find().exec();
-    callback('', athletes);      
-  } catch (err) {
-    callback(err, undefined);
-  }  
-}
-
-async function getAthlete(id, callback) {
-  try {
-    console.log('get athlete init');
-    let athlete = await Athletes.find({id: id}).exec();
-    console.log('get athlete finished');
-    console.log(athlete);
-    callback('', athlete);
-  } catch (err) {
-    callback(err, undefined);
-  }  
-}
+router.get('/:id', function (req, res, next) {
+  console.log(req.params.id);
+  Athletes.find({_id: req.params.id}).exec(function(err,result) {
+    if (err) {
+      next(err);
+      return;
+    }
+    res.status(200).render('athlete-detail', {status: 'ok', result: result});
+  });  
+});
 
 module.exports = router;
