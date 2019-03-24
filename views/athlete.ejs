@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>First website in Express</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body>
+    <% include includes/nav.ejs %>
+    <% include includes/hero.ejs %>
+
+    <div class="container">
+        <h1>List of athletes in the Crossfit database </h1>
+        <% if (status === 'ok') { %>
+            <div class="cards">
+                <% result.forEach(athlete => { %>
+                <div class="card">
+                    <div class="card-image">
+                        <img src="<%= athlete.imageUrl %>" alt="">
+                    </div>
+                    <div class="card-main">
+                        <div class="card-title">
+                            <a href="/athletes/<%= athlete.id %>"><%= athlete.name %></a>
+                        </div>
+                        <div class="card-content">
+                            <p>Athlete information:</p>
+                            <ul>
+                                <li>Age: <%= athlete.age %></li>
+                                <li>Country: <%= athlete.country %></li>
+                                <li>Games Won: <%= athlete.gamesWon %></li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a href="<%= athlete.instagram %>">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+                <%}) %>
+            </div>
+            <% } else { %>
+            <p><strong>Atleta no encontrado</strong></p>
+        <% } %>
+    </div>
+</body>
+</html>

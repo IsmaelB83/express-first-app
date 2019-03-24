@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>First website in Express</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body>
+    <% include includes/nav.ejs %>
+    <% include includes/hero.ejs %>
+
+    <div class="container">
+        <h1>Athlete details</h1>
+        <% if (status === 'ok') { %>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="<%= result[0].imageUrl %>" alt="">
+                    </div>
+                    <div class="card-main">
+                        <div class="card-title">
+                            <a href="/athletes/<%= result[0].id %>"><%= result[0].name %></a>
+                        </div>
+                        <div class="card-content">
+                            <p>Athlete information:</p>
+                            <ul>
+                                <li>Age: <%= result[0].age %></li>
+                                <li>Country: <%= result[0].country %></li>
+                                <li>Games Won: <%= result[0].gamesWon %></li>
+                            </ul>
+                            <p><%= result[0].bio %></p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="<%= result[0].instagram %>">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+            <p><strong>Atleta no encontrado</strong></p>
+        <% } %>
+    </div>
+</body>
+</html>
